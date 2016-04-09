@@ -1,5 +1,4 @@
 from point import Point
-import ioclass
 import tkinter
 
 
@@ -36,16 +35,13 @@ class EarTriangulation:
         new_cursor.next = new_head
         return new_head, self.SIZE
 
-    @staticmethod
-    def area2(a, b, c):
+    def area2(self, a, b, c):
         return ((b.x - a.x) * (c.y - a.y)) - ((c.x - a.x) * (b.y - a.y))
 
-    @staticmethod
-    def xor(x, y):
+    def xor(self, x, y):
         return x is not y
 
-    @staticmethod
-    def area_sign(a, b, c):
+    def area_sign(self, a, b, c):
         a1 = (b.x - a.x) * 1.0 * (c.y - a.y)
         a2 = (c.x - a.x) * 1.0 * (b.y - a.y)
 
@@ -57,15 +53,12 @@ class EarTriangulation:
             return -1
         return 0
 
-    @staticmethod
     def left(self, a, b, c):
         return self.area_sign(a, b, c) > 0
 
-    @staticmethod
     def left_on(self, a, b, c):
         return self.area_sign(a, b, c) >= 0
 
-    @staticmethod
     def collinear(self, a, b, c):
         return self.area_sign(a, b, c) == 0
 
@@ -74,7 +67,6 @@ class EarTriangulation:
     points a and b. In between means either in terms of x or y coordinate 
     ranges.
     '''
-    @staticmethod
     def is_between(self, a, b, c):
         if not self.collinear(a, b, c):
             return False
@@ -88,7 +80,6 @@ class EarTriangulation:
     Adapted from O'Rourke. Returns true if the line segment a,b intersects the 
     line segment c,d.
     '''
-    @staticmethod
     def is_intersect(self, a, b, c, d):
         if self.intersect_prop(a, b, c, d):
             return True
@@ -101,7 +92,6 @@ class EarTriangulation:
     Adapted from O'Rourke. Returns true if the line segment a,b is a diagonal 
     of the polygon.
     '''
-    @staticmethod
     def is_diagonal(self, a, b, head):
         c = head
 
@@ -122,7 +112,6 @@ class EarTriangulation:
     cross each other. If one segment's endpoint lies on the other segment, it's 
     not considered a proper intersection.
     '''
-    @staticmethod
     def intersect_prop(self, a, b, c, d):
         if self.collinear(a, b, c) or self.collinear(a, b, d) or self.collinear(c, d, a) or self.collinear(c, d, b):
             return False
@@ -133,7 +122,6 @@ class EarTriangulation:
     Adapted from O'Rourke. This function is needed to distinguish internal 
     diagonals from the external ones.
     '''
-    @staticmethod
     def is_in_cone(self, a, b):
         a1 = a.next
         a0 = a.prev
@@ -235,71 +223,6 @@ class EarTriangulation:
                 break
         return return_list
 
-    '''
-    This function draws the polygon on a canvas and displays them. This is done 
-    by simply drawing lines between consecutive points. Also, small dots are 
-    drawn for easy identification of the vertices, and a small text label is
-    also drawn next to each vertex (this text is the name of each Point object).
-    
-    @param canvas: The Tkinter Canvas widget on which to draw the polygon
-    '''
-    def draw_polygon(self, canvas):
-            
-        # Draw the polygon as a collection of lines:
-        cursor = self.HEAD
-        while True:
-            x1 = cursor.x
-            y1 = cursor.y
-            x2 = cursor.next.x
-            y2 = cursor.next.y
-
-            # First, draw text labels. Labels will be placed next to each vertex.
-            label = tkinter.Label(canvas, text=cursor.name, font="Times 8")
-            label.place(x=x1 + 5, y=700 - (y1 + 5))
-
-            # Draw a line from the current vertex to the next vertex:
-            canvas.create_line(x1, 700 - y1, x2, 700 - y2, width=2.0, fill='black')
-
-            # Finally, draw a little dot at the vertex:
-            canvas.create_oval(x1 - 4, 700 - (y1 - 4), x1 + 4, 700 - (y1 + 4), fill='black')
-            
-            cursor = cursor.next
-            if cursor.equals(self.HEAD):
-                break
-
-    '''
-    This function draws triangles, after a polygon is triangulated.
-    
-    @param canvas: A Tkinter Canvas widget on which to draw the triangles
-    @param triangles: This should be the return value of the 'Triangulate' function
-    
-    The function draws triangles by simply drawing lines between the 3 points 
-    of each triangle.
-    '''
-    def draw_triangles(self, canvas, triangles):
-        # It's convenient to have the points as a list instead of a linked list:
-        pointlist = []
-        cursor = self.HEAD
-        while True:
-            pointlist.append(cursor)
-            cursor = cursor.next
-            if cursor.equals(self.HEAD):
-                break
-
-        # The triangulation output is a list of triangles, where each triangle 
-        # is specified by the indices of 3 points. Get those 3 points from the
-        # 'pointlist' and draw lines between them:
-        if len(triangles) > 0:
-            for t in triangles:
-                # Find the 3 vertices with the matching indices:
-                p0 = pointlist[int(t[0]) - 1]
-                p1 = pointlist[int(t[1]) - 1]
-                p2 = pointlist[int(t[2]) - 1]
-
-                # Draw the 3 lines:
-                canvas.create_line(p0.x, 700 - p0.y, p1.x, 700 - p1.y, width=1.0, fill='red')
-                canvas.create_line(p0.x, 700 - p0.y, p2.x, 700 - p2.y, width=1.0, fill='red')
-                canvas.create_line(p2.x, 700 - p2.y, p1.x, 700 - p1.y, width=1.0, fill='red')
 
     '''
     This method does some translating and scaling so that the polygon is displayed
@@ -324,7 +247,7 @@ class EarTriangulation:
     def scale(self, uniform=False):
         x_min = 1000000000  # Initialize to some huge numbers
         y_min = 1000000000
-    
+
         # Traverse the list and find the smallest x and y values:
         cursor = self.HEAD
         while True:
@@ -368,8 +291,8 @@ class EarTriangulation:
             
         # Find the scaling factor:
         # 1250 and 690 are based on the canvas dimensions (1280 x 720)
-        k1 = 1250.0 / x_max
-        k2 = 690.0 / y_max
+        k1 = 670.0 / x_max
+        k2 = 470.0 / y_max
 
         if uniform:
             # Set both k1 and k2 to be min(k1, k2)
