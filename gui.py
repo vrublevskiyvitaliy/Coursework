@@ -9,7 +9,9 @@ class GUI:
         self.canvas_width = 700
         self.canvas_height = 500
         self.canvas = Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
-
+        self.res_text = StringVar()
+        # label = Label( root, textvariable=var, relief=RAISED )
+        self.result_label = None
         self.init()
 
     def close_window(self, ev):
@@ -26,9 +28,13 @@ class GUI:
 
         quit_btn = Button(panel_frame, text='Quit')
 
+        self.result_label = Label(panel_frame, textvariable=self.res_text, text='Result')
+
         quit_btn.bind("<Button-1>", self.close_window)
 
         quit_btn.place(x=10, y=10, width=40, height=40)
+
+        self.result_label.place(x=100, y=10, width=100, height=40)
 
         # root.mainloop()
 
@@ -37,6 +43,9 @@ class GUI:
 
     def get_root(self):
         return self.root
+
+    def set_result(self, number):
+        self.res_text.set("Result: " + str(number))
 
     '''
     This function draws the polygon on a canvas and displays them. This is done
@@ -101,9 +110,9 @@ class GUI:
         if len(triangles) > 0:
             for t in triangles:
                 # Find the 3 vertices with the matching indices:
-                p0 = pointlist[int(t[0]) - 1]
-                p1 = pointlist[int(t[1]) - 1]
-                p2 = pointlist[int(t[2]) - 1]
+                p0 = pointlist[int(t[0])]# - 1]
+                p1 = pointlist[int(t[1])]# - 1]
+                p2 = pointlist[int(t[2])]# - 1]
 
                 # Draw the 3 lines:
                 self.canvas.create_line(const_x + p0.x, const_y - p0.y, const_x + p1.x, const_y - p1.y, width=1.0, fill='red')

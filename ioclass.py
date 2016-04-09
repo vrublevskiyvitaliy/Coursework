@@ -76,7 +76,7 @@ def create_linked_list(filename='input.txt'):
 
     # Also, give the Points simple names to help out with visualization/debugging:
     for i in range(len(points)):
-        points[i].name = str(i + 1)
+        points[i].name = str(i)#str(i + 1)
         
     return first_point, len(points)
 

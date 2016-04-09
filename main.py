@@ -2,7 +2,7 @@ from gui import GUI
 from ear_trianguation import EarTriangulation
 import tkinter         # May need to change 'Tkinter' to 'tkinter' on Windows
 import ioclass
-
+from coloring import Coloring
 
 def main():
     filename = 'input1.txt'
@@ -15,6 +15,14 @@ def main():
     if not headnode1 or size1 < 3:
         print("No triangulations to output")
         return
+
+    pointlist = []
+    cursor = headnode1
+    while True:
+        pointlist.append(cursor)
+        cursor = cursor.next
+        if cursor.equals(headnode1):
+            break
 
     # Create a Triangulation object from the linked list:
     t1 = EarTriangulation()
@@ -46,8 +54,6 @@ def main():
 
     interface = GUI()
 
-    canvas = interface.get_canvas()
-
     interface.draw_triangles(t2, triangles2)
     interface.draw_polygon(t2)
 
@@ -55,6 +61,11 @@ def main():
     # polygon to the console:
     ioclass.print_triangles_to_console(triangles1)
 
+    art_gallery_coloring = Coloring()
+    art_gallery_coloring.set_triangulation(pointlist, triangles1)
+    res = art_gallery_coloring.colorize()
+
+    interface.set_result(res)
     root = interface.get_root()
     root.mainloop()
 

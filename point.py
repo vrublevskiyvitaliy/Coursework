@@ -8,6 +8,7 @@ class Point:
         self.name = -1
         self.next = None
         self.prev = None
+        self.color = -1
 
     def ___str___(self):
         return self.name
