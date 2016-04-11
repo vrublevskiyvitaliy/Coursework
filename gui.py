@@ -118,3 +118,13 @@ class GUI:
                 self.canvas.create_line(const_x + p0.x, const_y - p0.y, const_x + p1.x, const_y - p1.y, width=1.0, fill='red')
                 self.canvas.create_line(const_x + p0.x, const_y - p0.y, const_x + p2.x, const_y - p2.y, width=1.0, fill='red')
                 self.canvas.create_line(const_x + p2.x, const_y - p2.y, const_x + p1.x, const_y - p1.y, width=1.0, fill='red')
+
+    def draw_result(self, points):
+
+        for point in points:
+            self.draw_point(point[0], point[1])
+
+    def draw_point(self, x, y):
+        const_x = 500
+        const_y = 500
+        self.canvas.create_oval(x - 4 + const_x, const_y - (y - 4), x + 4 + const_x, const_y - (y + 4), fill='red')

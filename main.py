@@ -63,8 +63,20 @@ def main():
 
     art_gallery_coloring = Coloring()
     art_gallery_coloring.set_triangulation(pointlist, triangles1)
-    res = art_gallery_coloring.colorize()
+    points, res = art_gallery_coloring.colorize()
 
+    list_res = []
+    for p in points:
+        cursor = t2.HEAD
+        p = p.name
+        index = 0
+        while index < int(p):
+            index += 1
+            cursor = cursor.next
+
+        list_res.append([cursor.x, cursor.y])
+
+    interface.draw_result(list_res)
     interface.set_result(res)
     root = interface.get_root()
     root.mainloop()

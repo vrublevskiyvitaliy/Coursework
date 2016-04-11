@@ -81,7 +81,7 @@ class Coloring:
         self.dfs(key_ear_tri)
         output, col = self.find_min_color()
         # print("Guards are colored " + str(col - 1))
-        return col
+        return output, col
 
     def find_min_color(self):
         r_count, g_count, b_count = 0, 0, 0
