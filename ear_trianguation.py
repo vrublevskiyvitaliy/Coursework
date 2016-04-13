@@ -1,5 +1,8 @@
 from point import Point
-import tkinter
+try:
+    from Tkinter import *
+except ImportError:
+    from tkinter import *
 
 
 class EarTriangulation:

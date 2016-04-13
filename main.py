@@ -1,6 +1,9 @@
 from gui import GUI
 from ear_trianguation import EarTriangulation
-import tkinter         # May need to change 'Tkinter' to 'tkinter' on Windows
+try:
+    import tkinter         # May need to change 'Tkinter' to 'tkinter' on Windows
+except:
+    import Tkinter
 import ioclass
 from coloring import Coloring
 
