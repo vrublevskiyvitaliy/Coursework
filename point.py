@@ -27,3 +27,13 @@ class Point:
     def scale(self, k1, k2):
         self.x = int(self.x * k1)
         self.y = int(self.y * k2)
+
+    def get_clone(self):
+        p = Point(self.x,self.y)
+        p.ear = self.ear
+        p.name = self.name
+        p.next = self.next
+        p.prev = self.prev
+        p.color = self.color
+
+        return p
