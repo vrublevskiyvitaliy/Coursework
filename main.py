@@ -6,11 +6,12 @@ except:
     import Tkinter
 import ioclass
 from coloring import Coloring
+import ear_art_gallery_problem
 
 
 def main():
     filename = 'input1.txt'
-
+    '''
     # Open the file from disk, read the points and create a linked-list
     # structure that represents the Polygon:
     headnode1, size1 = ioclass.create_linked_list(filename)
@@ -73,7 +74,8 @@ def main():
     interface.set_result(res)
     root = interface.get_root()
     root.mainloop()
-
+    '''
+    ear_art_gallery_problem.art_gallery_problem(filename)
     # Display the canvas:
     # tkinter.mainloop()
 

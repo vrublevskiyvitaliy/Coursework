@@ -53,15 +53,15 @@ def read_from_file(filename='input.txt'):
         pt = Point(x, y)
         points.append(pt)
 
+    for i in range(len(points)):
+        points[i].name = str(i)
+
     return points
 
 
 def create_linked_list(filename='input.txt'):
     
     points = read_from_file(filename)
-
-    for i in range(len(points)):
-        points[i].name = str(i)
 
     poly = Polygon()
     poly.set_points(points)
