@@ -7,6 +7,7 @@ except:
 import ioclass
 from coloring import Coloring
 
+
 def main():
     filename = 'input1.txt'
 
@@ -32,16 +33,6 @@ def main():
     t1.HEAD = headnode1
     t1.SIZE = size1
 
-    # Create a copy of the linked list and use that to create a new
-    # Triangulation object. This is an identical copy, but it will be scaled
-    # and translated in order to be graphed on the canvas.
-    headnode2, size2 = t1.clone_linked_list()
-    t2 = EarTriangulation()
-    t2.HEAD = headnode2
-    t2.SIZE = size2
-    t2.scale(True)
-    t2.scale(True)
-
     # The scaling is just to make the polygon look better when viewing on a
     # canvas. Doing it multiple times is inefficient but makes the picture
     # better.
@@ -49,7 +40,6 @@ def main():
     # represent the vertices of each triangle.
 
     triangles1 = t1.triangulate()
-    triangles2 = t2.triangulate()
 
     # Now for the GUI. Both the polygon and its triangulation have been scaled,
     # as specified above. Now we need to draw them on a Tkinter Canvas.
@@ -57,8 +47,8 @@ def main():
 
     interface = GUI()
 
-    interface.draw_triangles(t2, triangles2)
-    interface.draw_polygon(t2)
+    interface.draw_triangles(t1, triangles1)
+    interface.draw_polygon(t1)
 
     # The last step is to output the triangulation of the original, non-scaled
     # polygon to the console:
@@ -70,7 +60,7 @@ def main():
 
     list_res = []
     for p in points:
-        cursor = t2.HEAD
+        cursor = t1.HEAD
         p = p.name
         index = 0
         while index < int(p):
