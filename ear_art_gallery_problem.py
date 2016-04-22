@@ -1,14 +1,10 @@
 import ioclass
 from ear_trianguation import EarTriangulation
-from gui import GUI
 from coloring import Coloring
 from polygon import Polygon
 
 
-def art_gallery_problem(filename):
-    # Open the file from disk, read the points and create a linked-list
-    # structure that represents the Polygon:
-
+def art_gallery_problem(interface, filename):
     points = ioclass.read_from_file(filename)
     poly = Polygon()
 
@@ -35,10 +31,7 @@ def art_gallery_problem(filename):
     # as specified above. Now we need to draw them on a Tkinter Canvas.
     # Setup and init a canvas:
 
-    interface = GUI()
-
     interface.draw_triangles(t1, triangles1)
-    interface.draw_polygon(t1)
 
     # The last step is to output the triangulation of the original, non-scaled
     # polygon to the console:
@@ -61,5 +54,3 @@ def art_gallery_problem(filename):
 
     interface.draw_result(list_res)
     interface.set_result(res)
-    root = interface.get_root()
-    root.mainloop()

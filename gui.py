@@ -26,7 +26,6 @@ class GUI:
         self.result_label = None
         self.init()
 
-
     def close_window(self, ev):
         self.root.destroy()
 
@@ -112,6 +111,43 @@ class GUI:
             )
             cursor = cursor.next
             if cursor.equals(triangulation.HEAD):
+                break
+
+    def draw_polygon_points(self, polygon):
+        linked_list = polygon.get_linked_list()
+        # Draw the polygon as a collection of lines:
+        cursor = linked_list[0]
+        while True:
+            x1 = cursor.x
+            y1 = cursor.y
+            x2 = cursor.next.x
+            y2 = cursor.next.y
+
+            # First, draw text labels. Labels will be placed next to each vertex.
+            self.draw_label(
+                text=cursor.name,
+                font="Times 8",
+                x=x1,
+                y=y1
+            )
+            # Draw a line from the current vertex to the next vertex:
+            self.draw_line(
+                p0_x=x1,
+                p0_y=y1,
+                p1_x=x2,
+                p1_y=y2,
+                width=2.0,
+                color='black'
+            )
+            # Finally, draw a little dot at the vertex:
+            self.draw_point(
+                x=x1,
+                y=y1,
+                radius=4,
+                color='black'
+            )
+            cursor = cursor.next
+            if cursor.equals(linked_list[0]):
                 break
     '''
     This function draws triangles, after a polygon is triangulated.

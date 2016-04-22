@@ -6,11 +6,13 @@ except:
     import Tkinter
 import ioclass
 from coloring import Coloring
+from polygon import Polygon
 import ear_art_gallery_problem
 
 
 def main():
     filename = 'input1.txt'
+
     '''
     # Open the file from disk, read the points and create a linked-list
     # structure that represents the Polygon:
@@ -75,8 +77,17 @@ def main():
     root = interface.get_root()
     root.mainloop()
     '''
-    ear_art_gallery_problem.art_gallery_problem(filename)
-    # Display the canvas:
-    # tkinter.mainloop()
+    interface = GUI()
+
+    points = ioclass.read_from_file(filename)
+    poly = Polygon()
+    poly.set_points(points)
+
+    interface.draw_polygon_points(poly)
+
+    ear_art_gallery_problem.art_gallery_problem(interface, filename)
+
+    root = interface.get_root()
+    root.mainloop()
 
 main()
