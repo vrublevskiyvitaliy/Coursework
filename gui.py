@@ -10,7 +10,7 @@ class GUI:
         self.root = Tk()
         w, h = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
         self.root.geometry("%dx%d+0+0" % (w, h))
-
+        self.root.attributes("-fullscreen", True)
         self.full_w, self.full_h = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
 
         self.canvas_width = self.full_w
