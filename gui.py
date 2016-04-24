@@ -206,7 +206,11 @@ class GUI:
 
     def draw_result(self, points):
         for point in points:
-            self.draw_point(x=point[0], y=point[1], color='red', radius=4 )
+            self.draw_point(x=point[0], y=point[1], color='red', radius=10)
+
+    def draw_result_points(self, points):
+        for point in points:
+            self.draw_point(x=point.x, y=point.y, color='red', radius=10)
 
     def draw_point(self, x, y, color, radius):
         x, y = self.transform_point_for_drawing(x, y)

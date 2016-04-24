@@ -8,10 +8,11 @@ import ioclass
 from coloring import Coloring
 from polygon import Polygon
 import ear_art_gallery_problem
+import ear_triang_segment_tree
 
 
 def main():
-    filename = 'input1.txt'
+    filename = 'input2.txt'
 
     '''
     # Open the file from disk, read the points and create a linked-list
@@ -83,10 +84,9 @@ def main():
     poly = Polygon()
     poly.set_points(points)
 
-    interface.draw_polygon_points(poly)
-
     ear_art_gallery_problem.art_gallery_problem(interface, filename)
-
+    #ear_triang_segment_tree.ear_segment_art_gallery_problem(interface, filename)
+    interface.draw_polygon_points(poly)
     root = interface.get_root()
     root.mainloop()
 
