@@ -1,10 +1,10 @@
 import random
 
-size_n = 10#0
-size_m = 10#0
+size_n = 5#0
+size_m = 5#0
 
 
-initial_matrix = [[0 for x in range(size_n)] for y in range(size_m)]
+initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
 
 
 def print_matrix(matrix):
@@ -18,10 +18,10 @@ def print_matrix(matrix):
 
 def get_random_next_point_eat(x, y, matrix):
     choices = [
-        (x + 1, y, x + 2, y),
-        (x - 1, y, x - 1, y),
-        (x, y - 1, x, y - 2),
-        (x, y + 1, x, y + 2)
+        (x + 1, y, x + 2, y - 1, x + 2, y, x + 2, y + 1),
+        (x - 1, y, x - 2, y - 1, x - 2, y, x - 2, y + 1),
+        (x, y - 1, x - 1, y - 2, x, y - 2, x + 1, y - 2),
+        (x, y + 1, x - 1, y + 2, x, y + 2, x + 1, y + 2)
     ]
 
     free_choices = []
@@ -41,16 +41,22 @@ def get_random_next_point_eat(x, y, matrix):
     correct_choices = []
 
     for choice in free_choices:
-        if choice[2] < 0 or choice[2] >= size_n:
-            correct_choices.append(choice)
-            continue
+        if choice[2] >= 0 and choice[2] < size_n:
+            if choice[3] >= 0 and choice[3] < size_m:
+                if matrix[choice[2]][choice[3]] == 1:
+                    continue
 
-        if choice[3] < 0 or choice[3] >= size_m:
-            correct_choices.append(choice)
-            continue
+        if choice[4] >= 0 and choice[4] < size_n:
+            if choice[5] >= 0 and choice[5] < size_m:
+                if matrix[choice[4]][choice[5]] == 1:
+                    continue
 
-        if matrix[choice[2]][choice[3]] == 0:
-            correct_choices.append(choice)
+        if choice[6] >= 0 and choice[6] < size_n:
+            if choice[7] >= 0 and choice[7] < size_m:
+                if matrix[choice[6]][choice[7]] == 1:
+                    continue
+
+        correct_choices.append(choice)
 
     if len(correct_choices) == 0:
         return None
@@ -101,7 +107,7 @@ def generate():
     # number_of_vertixes = 4
 
     iteration = 0
-    max_iterations = 50
+    max_iterations = 2
 
     # 1 - eat
     # 0 - back
@@ -130,8 +136,75 @@ def generate():
     print_matrix(initial_matrix)
 
 
+def get_coordinate_of_point(x, y, dx, dy):
+    return 2 * x + dx, 2 * y + dy
+
+
+def is_there_wall(x1, y1, x2, y2):
+    x = (x1 + x2) / 2
+    y = (y1 + y2) / 2
+
+    if x == x1 and x == x2:
+        y1 = y / 2
+        y2 = y / 2
+
+        x1 = (x - 1) / 2
+        x2 = (x + 1) / 2
+    else:
+        x1 = x / 2
+        x2 = x / 2
+
+        y1 = (y - 1) / 2
+        y2 = (y + 1) / 2
+
+    if (initial_matrix[x1][y1] + initial_matrix[x2][y2]) % 2 == 0:
+        return False
+    else:
+        return True
+
+
+def transform_matrix_to_coordinates(matrix):
+    start_x = -1
+    start_y = -1
+
+    for i in range(0, size_n):
+        for j in range(0, size_m):
+            if matrix[i][j] == 1:
+                start_x = i
+                start_y = j
+                break
+        if start_x != -1:
+            break
+
+    points = list()
+    points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
+    points.append(get_coordinate_of_point(start_x, start_y, +1, +1))
+
+    curent_point = points[1]
+
+    while curent_point != points[0]:
+        posible_next_points = list()
+
+        posible_next_points.append((curent_point[0], curent_point[1] + 2)) # up
+        posible_next_points.append((curent_point[0] + 2, curent_point[1])) # right
+        posible_next_points.append((curent_point[0], curent_point[1] - 2)) # down
+        posible_next_points.append((curent_point[0] - 2, curent_point[1])) # left
+
+        for point in posible_next_points:
+            if point == points[len(points) - 2]:
+                # it is the previous
+                continue
+            if is_there_wall(curent_point[0], curent_point[1], point[0], point[1]):
+                points.append(point)
+                curent_point = point
+                break
+
+
+    print points
+
 
 
 
 
 generate()
+transform_matrix_to_coordinates(initial_matrix)
