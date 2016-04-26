@@ -26,10 +26,10 @@ def get_random_next_point_eat(x, y, matrix):
 
     free_choices = []
     for choice in choices:
-        if choice[0] < 0 or choice[0] >= size_n:
+        if choice[0] < 1 or choice[0] >= size_n:
             continue
 
-        if choice[1] < 0 or choice[1] >= size_m:
+        if choice[1] < 1 or choice[1] >= size_m:
             continue
 
         if matrix[choice[0]][choice[1]] == 0:
@@ -41,18 +41,18 @@ def get_random_next_point_eat(x, y, matrix):
     correct_choices = []
 
     for choice in free_choices:
-        if choice[2] >= 0 and choice[2] < size_n:
-            if choice[3] >= 0 and choice[3] < size_m:
+        if choice[2] >= 1 and choice[2] < size_n:
+            if choice[3] >= 1 and choice[3] < size_m:
                 if matrix[choice[2]][choice[3]] == 1:
                     continue
 
-        if choice[4] >= 0 and choice[4] < size_n:
-            if choice[5] >= 0 and choice[5] < size_m:
+        if choice[4] >= 1 and choice[4] < size_n:
+            if choice[5] >= 1 and choice[5] < size_m:
                 if matrix[choice[4]][choice[5]] == 1:
                     continue
 
-        if choice[6] >= 0 and choice[6] < size_n:
-            if choice[7] >= 0 and choice[7] < size_m:
+        if choice[6] >= 1 and choice[6] < size_n:
+            if choice[7] >= 1 and choice[7] < size_m:
                 if matrix[choice[6]][choice[7]] == 1:
                     continue
 
@@ -215,6 +215,22 @@ def transform_matrix_to_coordinates(matrix):
     points = list()
     for point in correct_points:
         points.append((point[0] - x_min, point[1] - y_min))
+
+    correct_points = list()
+    # correct_points.append(points[0])
+    for point in points:
+        if len(correct_points) < 2:
+            correct_points.append(point)
+            continue
+
+        low = correct_points[len(correct_points) - 2]
+        middle = correct_points[len(correct_points) - 1]
+        if low[0] == point[0] and low[0] == middle[0] or\
+            low[1] == point[1] and low[1] == middle[1]:
+            del correct_points[len(correct_points) - 1]
+        correct_points.append(point)
+
+    points = correct_points
 
     f = open('test.txt', 'w')
     f.write(str(len(points)) + '\n')

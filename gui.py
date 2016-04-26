@@ -20,9 +20,8 @@ class GUI:
         self.res_text = StringVar()
         # label = Label( root, textvariable=var, relief=RAISED )
 
-        # temporary, for first test!!!
-        self.max_point_x = 9 # + 10
-        self.max_point_y = 12 # + 10
+        self.max_point_x = None
+        self.max_point_y = None
         self.result_label = None
         self.init()
 
