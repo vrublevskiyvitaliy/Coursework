@@ -1,7 +1,8 @@
 import random
 
-size_n = 30#0
-size_m = 30#0
+size_n = 10#0
+size_m = 10#0
+max_iterations = 10
 
 
 initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
@@ -107,7 +108,7 @@ def generate():
     # number_of_vertixes = 4
 
     iteration = 0
-    max_iterations = 100
+
 
     # 1 - eat
     # 0 - back
