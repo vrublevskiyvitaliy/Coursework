@@ -1,7 +1,7 @@
 import random
 
-size_n = 5#0
-size_m = 5#0
+size_n = 30#0
+size_m = 30#0
 
 
 initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
@@ -107,7 +107,7 @@ def generate():
     # number_of_vertixes = 4
 
     iteration = 0
-    max_iterations = 2
+    max_iterations = 100
 
     # 1 - eat
     # 0 - back
@@ -178,11 +178,11 @@ def transform_matrix_to_coordinates(matrix):
 
     points = list()
     points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
-    points.append(get_coordinate_of_point(start_x, start_y, +1, +1))
 
-    curent_point = points[1]
+    curent_point = get_coordinate_of_point(start_x, start_y, +1, +1)
 
     while curent_point != points[0]:
+        points.append(curent_point)
         posible_next_points = list()
 
         posible_next_points.append((curent_point[0], curent_point[1] + 2)) # up
@@ -195,15 +195,33 @@ def transform_matrix_to_coordinates(matrix):
                 # it is the previous
                 continue
             if is_there_wall(curent_point[0], curent_point[1], point[0], point[1]):
-                points.append(point)
+                # points.append(point)
                 curent_point = point
                 break
 
 
-    print points
+    # print points
+    correct_points = list()
+    x_min = 10000000
+    y_min = 10000000
 
+    for point in points:
+        correct_points.append((point[1], point[0]))
+        if point[1] < x_min:
+            x_min = point[1]
+        if point[0] < y_min:
+            y_min = point[0]
 
+    points = list()
+    for point in correct_points:
+        points.append((point[0] - x_min, point[1] - y_min))
 
+    f = open('test.txt', 'w')
+    f.write(str(len(points)) + '\n')
+
+    for point in points:
+        f.write('[' + str(point[0]) + ', ' + str(point[1]) + ']' + '\n')
+    f.close()
 
 
 generate()

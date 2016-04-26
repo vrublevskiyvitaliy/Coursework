@@ -12,7 +12,7 @@ import ear_triang_segment_tree
 
 
 def main():
-    filename = 'input2.txt'
+    filename = 'test.txt'
 
     '''
     # Open the file from disk, read the points and create a linked-list
