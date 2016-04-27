@@ -1,8 +1,8 @@
 import random
 
-size_n = 10#0
-size_m = 10#0
-max_iterations = 10
+size_n = 100
+size_m = 100
+max_iterations = 4000
 
 
 initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
@@ -158,6 +158,22 @@ def is_there_wall(x1, y1, x2, y2):
         y1 = (y - 1) / 2
         y2 = (y + 1) / 2
 
+    y1 = y1 - 1
+    y2 = y2 - 1
+
+    one = initial_matrix[x1][y1]
+    two = initial_matrix[x2][y2]
+
+    initial_matrix[x1][y1] = 2
+    initial_matrix[x2][y2] = 2
+
+    #print ('****************')
+    #print(str(x1) + ' - ' +str())
+    #print_matrix(initial_matrix)
+    #print ('****************')
+
+    initial_matrix[x1][y1] = one
+    initial_matrix[x2][y2] = two
     if (initial_matrix[x1][y1] + initial_matrix[x2][y2]) % 2 == 0:
         return False
     else:
@@ -168,8 +184,8 @@ def transform_matrix_to_coordinates(matrix):
     start_x = -1
     start_y = -1
 
-    for i in range(0, size_n):
-        for j in range(0, size_m):
+    for i in range(1, size_n + 1):
+        for j in range(1, size_m + 1):
             if matrix[i][j] == 1:
                 start_x = i
                 start_y = j
@@ -178,19 +194,21 @@ def transform_matrix_to_coordinates(matrix):
             break
 
     points = list()
+    # points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
     points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
 
-    curent_point = get_coordinate_of_point(start_x, start_y, +1, +1)
-
+    # curent_point = get_coordinate_of_point(start_x, start_y, +1, +1)
+    curent_point = (points[0][0], points[0][1] + 2)
     while curent_point != points[0]:
         points.append(curent_point)
         posible_next_points = list()
 
-        posible_next_points.append((curent_point[0], curent_point[1] + 2)) # up
-        posible_next_points.append((curent_point[0] + 2, curent_point[1])) # right
-        posible_next_points.append((curent_point[0], curent_point[1] - 2)) # down
-        posible_next_points.append((curent_point[0] - 2, curent_point[1])) # left
+        posible_next_points.append((curent_point[0] - 2, curent_point[1])) # up
+        posible_next_points.append((curent_point[0], curent_point[1] + 2)) # right
+        posible_next_points.append((curent_point[0] + 2, curent_point[1])) # down
+        posible_next_points.append((curent_point[0], curent_point[1] - 2)) # left
 
+        is_exist = False
         for point in posible_next_points:
             if point == points[len(points) - 2]:
                 # it is the previous
@@ -198,7 +216,12 @@ def transform_matrix_to_coordinates(matrix):
             if is_there_wall(curent_point[0], curent_point[1], point[0], point[1]):
                 # points.append(point)
                 curent_point = point
+                is_exist = True
                 break
+        if not is_exist:
+            print 'Error'
+            print(points)
+            break
 
 
     # print points
@@ -216,7 +239,7 @@ def transform_matrix_to_coordinates(matrix):
     points = list()
     for point in correct_points:
         points.append((point[0] - x_min, point[1] - y_min))
-
+    #'''
     correct_points = list()
     # correct_points.append(points[0])
     for point in points:
@@ -232,7 +255,7 @@ def transform_matrix_to_coordinates(matrix):
         correct_points.append(point)
 
     points = correct_points
-
+    #'''
     f = open('test.txt', 'w')
     f.write(str(len(points)) + '\n')
 

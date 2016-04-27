@@ -142,7 +142,7 @@ class GUI:
             self.draw_point(
                 x=x1,
                 y=y1,
-                radius=4,
+                radius=2,
                 color='black'
             )
             cursor = cursor.next
@@ -205,11 +205,11 @@ class GUI:
 
     def draw_result(self, points):
         for point in points:
-            self.draw_point(x=point[0], y=point[1], color='red', radius=10)
+            self.draw_point(x=point[0], y=point[1], color='red', radius=5)
 
     def draw_result_points(self, points):
         for point in points:
-            self.draw_point(x=point.x, y=point.y, color='red', radius=10)
+            self.draw_point(x=point.x, y=point.y, color='red', radius=5)
 
     def draw_point(self, x, y, color, radius):
         x, y = self.transform_point_for_drawing(x, y)
@@ -223,8 +223,8 @@ class GUI:
 
     def draw_label(self, text, font, x, y):
         label = Label(self.canvas, text=text, font=font)
-        x, y = self.transform_point_for_drawing(x, y)
-        label.place(x=x+5, y=y+5)
+        #x, y = self.transform_point_for_drawing(x, y)
+        #label.place(x=x+5, y=y+5)
 
     def transform_point_for_drawing(self, x, y):
         # size_x = 0.8 * self.full_w # max size for x

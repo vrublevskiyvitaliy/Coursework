@@ -86,6 +86,8 @@ def main():
     y_max = 0
 
     for point in points:
+        #print(point.x)
+        #print(point.y)
         if point.x > x_max:
             x_max = point.x
         if point.y > y_max:
@@ -97,8 +99,8 @@ def main():
     poly = Polygon()
     poly.set_points(points)
 
-    ear_art_gallery_problem.art_gallery_problem(interface, filename)
-    #ear_triang_segment_tree.ear_segment_art_gallery_problem(interface, filename)
+    #ear_art_gallery_problem.art_gallery_problem(interface, filename)
+    ear_triang_segment_tree.ear_segment_art_gallery_problem(interface, filename)
     interface.draw_polygon_points(poly)
     root = interface.get_root()
     root.mainloop()

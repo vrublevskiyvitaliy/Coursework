@@ -29,7 +29,7 @@ def read_from_file(filename='input.txt'):
     input_file.close()
 
     # The size of the list must match the number that was specified:
-    if n is not len(list1):
+    if n != len(list1):
         return None, 0
 
     # Go through the list and check the input for any inconsistencies
