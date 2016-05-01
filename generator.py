@@ -1,20 +1,21 @@
+from point import Point
 import random
 
 size_n = 100
 size_m = 100
-max_iterations = 2000
-
-
-initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
+max_iterations = 100
 
 
 def print_matrix(matrix):
+    pass
+    '''
     for row in matrix:
         for sell in row:
             print (sell, end=" ")
             # print sell,
         print
         # print
+    '''
 
 
 def get_random_next_point_eat(x, y, matrix):
@@ -94,16 +95,14 @@ def get_random_next_point_back(x, y, matrix):
     return free_choices[index][0], free_choices[index][1]
 
 
-def generate():
+def generate(initial_matrix):
     current_point_x = random.randint(1, size_n-1)
     current_point_y = random.randint(1, size_m-1)
 
-
-
     initial_matrix[current_point_x][current_point_y] = 1
 
-    print_matrix(initial_matrix)
-    print('************************')
+    #print_matrix(initial_matrix)
+    #print('************************')
 
     # number_of_vertixes = 4
 
@@ -133,15 +132,16 @@ def generate():
         #print('********************')
         #print_matrix(initial_matrix)
 
-    print('********************')
-    print_matrix(initial_matrix)
+    #print('********************')
+    #print_matrix(initial_matrix)
+    print("create matrix")
 
 
 def get_coordinate_of_point(x, y, dx, dy):
     return 2 * x + dx, 2 * y + dy
 
 
-def is_there_wall(x1, y1, x2, y2):
+def is_there_wall(x1, y1, x2, y2, initial_matrix):
     x = (x1 + x2) / 2
     y = (y1 + y2) / 2
 
@@ -185,6 +185,7 @@ def is_there_wall(x1, y1, x2, y2):
 
 
 def transform_matrix_to_coordinates(matrix):
+    write_to_file = False
     start_x = -1
     start_y = -1
 
@@ -217,7 +218,7 @@ def transform_matrix_to_coordinates(matrix):
             if point == points[len(points) - 2]:
                 # it is the previous
                 continue
-            if is_there_wall(curent_point[0], curent_point[1], point[0], point[1]):
+            if is_there_wall(curent_point[0], curent_point[1], point[0], point[1], matrix):
                 # points.append(point)
                 curent_point = point
                 is_exist = True
@@ -259,14 +260,36 @@ def transform_matrix_to_coordinates(matrix):
         correct_points.append(point)
 
     points = correct_points
-    #'''
-    f = open('test.txt', 'w')
-    f.write(str(len(points)) + '\n')
+    if write_to_file:
+        #'''
+        f = open('test.txt', 'w')
+        f.write(str(len(points)) + '\n')
 
-    for point in points:
-        f.write('[' + str(point[0]) + ', ' + str(point[1]) + ']' + '\n')
-    f.close()
+        for point in points:
+            f.write('[' + str(point[0]) + ', ' + str(point[1]) + ']' + '\n')
+        f.close()
+    print("create poly")
+    return points
 
 
-generate()
-transform_matrix_to_coordinates(initial_matrix)
+def generate_polygon():
+    initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
+    generate(initial_matrix)
+    transform_matrix_to_coordinates(initial_matrix)
+
+
+def get_random_polygon():
+    initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
+    generate(initial_matrix)
+    points = transform_matrix_to_coordinates(initial_matrix)
+    c_points = []
+    for p in points:
+        pt = Point(p[0], p[1])
+        c_points.append(pt)
+
+    for i in range(len(c_points)):
+        c_points[i].name = str(i)
+    return c_points
+
+#generate()
+#transform_matrix_to_coordinates(initial_matrix)
