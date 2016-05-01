@@ -2,7 +2,7 @@ import random
 
 size_n = 100
 size_m = 100
-max_iterations = 4000
+max_iterations = 2000
 
 
 initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
@@ -11,8 +11,8 @@ initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m +
 def print_matrix(matrix):
     for row in matrix:
         for sell in row:
-            # print (sell, end=" ")
-            print sell,
+            print (sell, end=" ")
+            # print sell,
         print
         # print
 
@@ -160,6 +160,10 @@ def is_there_wall(x1, y1, x2, y2):
 
     y1 = y1 - 1
     y2 = y2 - 1
+    x1 = int(x1)
+    x2 = int(x2)
+    y1 = int(y1)
+    y2 = int(y2)
 
     one = initial_matrix[x1][y1]
     two = initial_matrix[x2][y2]
@@ -219,8 +223,8 @@ def transform_matrix_to_coordinates(matrix):
                 is_exist = True
                 break
         if not is_exist:
-            print 'Error'
-            print(points)
+            #print 'Error'
+            #print(points)
             break
 
 
