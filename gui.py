@@ -72,10 +72,10 @@ class GUI:
         mode = self.method_combo.current()
         if mode == 0:
             ear_art_gallery_problem.art_gallery_problem(interface=self, points=points,
-                                                        show_triangulation=show_decomposition)
+                                                        show_decomposition=show_decomposition)
         elif mode == 1:
             ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points,
-                                                                    show_triangulation=show_decomposition)
+                                                                    show_decomposition=show_decomposition)
 
     def generate_new_poly(self, ev):
         points = get_random_polygon()
