@@ -1,7 +1,14 @@
 try:
     from Tkinter import *
+    import Tkinter.ttk as ttk
 except ImportError:
     from tkinter import *
+    import tkinter.ttk as ttk
+
+from generator import generate_polygon, get_random_polygon
+from polygon import Polygon
+import ioclass
+from ioclass import filename
 
 
 class GUI:
@@ -18,15 +25,48 @@ class GUI:
 
         self.canvas = Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
         self.res_text = StringVar()
+
+        self.method_combo = None
+        self.generate_button = None
         # label = Label( root, textvariable=var, relief=RAISED )
 
         self.max_point_x = None
         self.max_point_y = None
         self.result_label = None
+        self.points = None
         self.init()
+
+    def set_points(self, points):
+        self.points = points
+
+        x_max = 0
+        y_max = 0
+
+        for point in points:
+            if point.x > x_max:
+                x_max = point.x
+            if point.y > y_max:
+                y_max = point.y
+
+        self.max_point_x = x_max
+        self.max_point_y = y_max
 
     def close_window(self, ev):
         self.root.destroy()
+
+    def change_solution_method(self, ev):
+        pass
+        #self.canvas.delete("all")
+        #self.set_result(11)
+
+    def generate_new_poly(self, ev):
+        #generate_polygon()
+        points = get_random_polygon() #ioclass.read_from_file(filename)
+        self.set_points(points)
+        poly = Polygon()
+        poly.set_points(points)
+        self.canvas.delete("all")
+        self.draw_polygon_points(poly)
 
     def init(self):
         root = self.root
@@ -56,7 +96,38 @@ class GUI:
             height=0.06 * self.full_h
         )
 
-        # root.mainloop()
+        list1 = ["One", "Two", "Three"]
+        self.method_combo = ttk.Combobox(
+            panel_frame,
+            values=list1,
+            style='Kim.TButton',
+            justify='center',
+            foreground='#FF0000',
+            state='readonly'
+        )
+
+        self.method_combo.place(
+            x=0.21 * self.full_w,
+            y=0.01 * self.full_h,
+            width=0.07 * self.full_w,
+            height=0.04 * self.full_h
+        )
+
+        self.method_combo.bind('<<ComboboxSelected>>', self.change_solution_method)
+
+        self.generate_button = Button(
+            panel_frame,
+            text='Generate'
+        )
+
+        self.generate_button.bind("<Button-1>", self.generate_new_poly)
+
+        self.generate_button.place(
+            x=0.31 * self.full_w,
+            y=0.01 * self.full_h,
+            width=0.07 * self.full_w,
+            height=0.05 * self.full_h
+        )
 
     def get_canvas(self):
         return self.canvas
