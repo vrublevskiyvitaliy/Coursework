@@ -38,6 +38,7 @@ class GUI:
         self.result_label = None
         self.all_points_label = None
         self.points = None
+        self.show_decomposition_checkbox = None
         self.init()
 
     def set_points(self, points):
@@ -67,12 +68,14 @@ class GUI:
         poly = Polygon()
         poly.set_points(points)
         self.draw_polygon_points(poly)
-
+        show_decomposition = self.show_decomposition_checkbox.var.get() == 1
         mode = self.method_combo.current()
         if mode == 0:
-            ear_art_gallery_problem.art_gallery_problem(interface=self, points=points)
+            ear_art_gallery_problem.art_gallery_problem(interface=self, points=points,
+                                                        show_triangulation=show_decomposition)
         elif mode == 1:
-            ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points)
+            ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points,
+                                                                    show_triangulation=show_decomposition)
 
     def generate_new_poly(self, ev):
         points = get_random_polygon()
@@ -149,6 +152,21 @@ class GUI:
             x=0.41 * self.full_w,
             y=0.01 * self.full_h,
             width=0.07 * self.full_w,
+            height=0.06 * self.full_h
+        )
+
+        var = IntVar()
+        self.show_decomposition_checkbox = ttk.Checkbutton(
+            panel_frame,
+            text='Show decomposition',
+            variable=var
+        )
+        self.show_decomposition_checkbox.var = var
+
+        self.show_decomposition_checkbox.place(
+            x=0.51 * self.full_w,
+            y=0.01 * self.full_h,
+            width=0.10 * self.full_w,
             height=0.06 * self.full_h
         )
 

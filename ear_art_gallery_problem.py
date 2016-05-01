@@ -5,7 +5,7 @@ from coloring import Coloring
 from polygon import Polygon
 
 
-def art_gallery_problem(interface, points=None):
+def art_gallery_problem(interface, points=None, show_triangulation=True):
     if points is None:
         points = ioclass.read_from_file(filename)
     poly = Polygon()
@@ -32,8 +32,8 @@ def art_gallery_problem(interface, points=None):
     # Now for the GUI. Both the polygon and its triangulation have been scaled,
     # as specified above. Now we need to draw them on a Tkinter Canvas.
     # Setup and init a canvas:
-
-    interface.draw_triangles(t1, triangles1)
+    if show_triangulation:
+        interface.draw_triangles(t1, triangles1)
 
     # The last step is to output the triangulation of the original, non-scaled
     # polygon to the console:

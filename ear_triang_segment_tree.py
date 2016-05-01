@@ -5,7 +5,7 @@ from SegmentTree import SegmentTree
 from ioclass import filename
 
 
-def ear_segment_art_gallery_problem(interface, points=None):
+def ear_segment_art_gallery_problem(interface, points=None, show_triangulation=True):
     if points is None:
         points = ioclass.read_from_file(filename)
     poly = Polygon()
@@ -23,7 +23,8 @@ def ear_segment_art_gallery_problem(interface, points=None):
 
     triangles1 = t1.triangulate()
 
-    interface.draw_triangles(t1, triangles1)
+    if show_triangulation:
+        interface.draw_triangles(t1, triangles1)
 
     triangles_per_point = dict()
     segment_tree = SegmentTree(0, size - 1)
@@ -70,6 +71,3 @@ def ear_segment_art_gallery_problem(interface, points=None):
 
     interface.draw_result_points(res)
     interface.set_result(len(res))
-
-    # interface.draw_result(list_res)
-    # interface.set_result(res)
