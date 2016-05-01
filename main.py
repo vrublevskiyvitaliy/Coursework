@@ -5,19 +5,23 @@ try:
 except:
     import Tkinter
 import ioclass
+from ioclass import filename
 from coloring import Coloring
 from polygon import Polygon
 import ear_art_gallery_problem
 import ear_triang_segment_tree
 
 
-def main():
-    filename = 'test.txt'
+#filename = 'test.txt'
 
+
+def main():
     interface = GUI()
 
     points = ioclass.read_from_file(filename)
 
+    interface.set_points(points)
+    '''
     x_max = 0
     y_max = 0
 
@@ -29,7 +33,7 @@ def main():
 
     interface.max_point_x = x_max
     interface.max_point_y = y_max
-
+    '''
     poly = Polygon()
     poly.set_points(points)
 
@@ -38,5 +42,7 @@ def main():
     interface.draw_polygon_points(poly)
     root = interface.get_root()
     root.mainloop()
+
+# def get_points
 
 main()

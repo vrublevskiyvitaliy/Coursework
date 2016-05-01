@@ -2,6 +2,8 @@ from point import Point
 from polygon import Polygon
 import sys
 
+filename = 'test.txt'
+
 
 def remove_duplicates(list_of_points):
     length = len(list_of_points)
@@ -55,6 +57,7 @@ def read_from_file(filename='input.txt'):
 
     for i in range(len(points)):
         points[i].name = str(i)
+
 
     return points
 
