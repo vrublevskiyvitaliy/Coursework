@@ -11,6 +11,7 @@ import ioclass
 from ioclass import filename
 import ear_art_gallery_problem
 import ear_triang_segment_tree
+import seidel_art_gallery_segment
 
 
 class GUI:
@@ -76,6 +77,9 @@ class GUI:
         elif mode == 1:
             ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points,
                                                                     show_decomposition=show_decomposition)
+        elif mode == 2:
+            seidel_art_gallery_segment.seidel_segment_art_gallery_problem(interface=self, points=points,
+                                                                          show_decomposition=show_decomposition)
 
     def generate_new_poly(self, ev):
         points = get_random_polygon()
@@ -115,7 +119,7 @@ class GUI:
             height=0.06 * self.full_h
         )
 
-        list1 = ["Ear/Coloring", "Ear/Segment"]
+        list1 = ["Ear/Coloring", "Ear/Segment", "Seidel/Segment"]
         self.method_combo = ttk.Combobox(
             panel_frame,
             values=list1,
@@ -271,16 +275,8 @@ class GUI:
     The function draws triangles by simply drawing lines between the 3 points
     of each triangle.
     '''
-    def draw_triangles(self, triangulation, triangles):
-        # It's convenient to have the points as a list instead of a linked list:
-        pointlist = []
-        cursor = triangulation.HEAD
-        while True:
-            pointlist.append(cursor)
-            cursor = cursor.next
-            if cursor.equals(triangulation.HEAD):
-                break
-
+    def draw_triangles(self, triangles):
+        pointlist = self.points
         # The triangulation output is a list of triangles, where each triangle
         # is specified by the indices of 3 points. Get those 3 points from the
         # 'pointlist' and draw lines between them:

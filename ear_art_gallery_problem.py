@@ -33,7 +33,7 @@ def art_gallery_problem(interface, points=None, show_decomposition=True):
     # as specified above. Now we need to draw them on a Tkinter Canvas.
     # Setup and init a canvas:
     if show_decomposition:
-        interface.draw_triangles(t1, triangles1)
+        interface.draw_triangles(triangles1)
 
     # The last step is to output the triangulation of the original, non-scaled
     # polygon to the console:

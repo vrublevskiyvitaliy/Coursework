@@ -1,3 +1,4 @@
+import seidel
 import ioclass
 from ear_trianguation import EarTriangulation
 from polygon import Polygon
@@ -5,23 +6,21 @@ from SegmentTree import SegmentTree
 from ioclass import filename
 
 
-def ear_segment_art_gallery_problem(interface, points=None, show_decomposition=True):
+def seidel_segment_art_gallery_problem(interface, points=None, show_decomposition=True):
     if points is None:
         points = ioclass.read_from_file(filename)
     poly = Polygon()
     poly.set_points(points)
-
-    linked_list = poly.get_linked_list()
-    headnode = linked_list[0]
     size = len(points)
 
-    # Create a Triangulation object from the linked list:
-    t1 = EarTriangulation(headnode, size)
+    list_points = []
+    for p in points:
+        list_points.append([p.x, p.y])
 
-    # Do the triangulation. The return value is a list of 3-tuples, which
-    # represent the vertices of each triangle.
+    #test = [[0, 0], [1, 0], [1, 1], [0, 1]]
+    seidel_1 = seidel.Triangulator(list_points)
 
-    triangles1 = t1.triangulate()
+    triangles1 = seidel_1.triangles()
 
     if show_decomposition:
         interface.draw_triangles(triangles1)
@@ -55,7 +54,7 @@ def ear_segment_art_gallery_problem(interface, points=None, show_decomposition=T
     res = []
     while current_max > 0:
         res.append(points[current_max_index])
-        for triangle in triangles_per_point[str(current_max_index)]:
+        for triangle in triangles_per_point[current_max_index]:
             p1, p2, p3 = triangle[0], triangle[1], triangle[2]
 
             p1 = int(p1)
@@ -71,3 +70,8 @@ def ear_segment_art_gallery_problem(interface, points=None, show_decomposition=T
 
     interface.draw_result_points(res)
     interface.set_result(len(res))
+
+#test = [[0, 0], [1, 0], [1, 1], [0, 1]]
+#seidel_1 = seidel.Triangulator(test)
+
+#triangles = seidel_1.triangles()
