@@ -2,10 +2,12 @@ import ioclass
 from ear_trianguation import EarTriangulation
 from polygon import Polygon
 from SegmentTree import SegmentTree
+from ioclass import filename
 
 
-def ear_segment_art_gallery_problem(interface, filename):
-    points = ioclass.read_from_file(filename)
+def ear_segment_art_gallery_problem(interface, points=None):
+    if points is None:
+        points = ioclass.read_from_file(filename)
     poly = Polygon()
     poly.set_points(points)
 

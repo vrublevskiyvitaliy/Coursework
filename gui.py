@@ -9,6 +9,8 @@ from generator import generate_polygon, get_random_polygon
 from polygon import Polygon
 import ioclass
 from ioclass import filename
+import ear_art_gallery_problem
+import ear_triang_segment_tree
 
 
 class GUI:
@@ -55,13 +57,26 @@ class GUI:
         self.root.destroy()
 
     def change_solution_method(self, ev):
-        pass
-        #self.canvas.delete("all")
+        # 0 - ear - coloring
+        # 1 - ear - segment - tree
+        self.canvas.delete("all")
+        points = self.points
+        poly = Polygon()
+        poly.set_points(points)
+        self.draw_polygon_points(poly)
+
+        mode = self.method_combo.current()
+        if mode == 0:
+            ear_art_gallery_problem.art_gallery_problem(interface=self, points=points)
+        elif mode == 1:
+            ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points)
+        #print(self.method_combo.current())
+        #pass
+
         #self.set_result(11)
 
     def generate_new_poly(self, ev):
-        #generate_polygon()
-        points = get_random_polygon() #ioclass.read_from_file(filename)
+        points = get_random_polygon()
         self.set_points(points)
         poly = Polygon()
         poly.set_points(points)
@@ -96,7 +111,7 @@ class GUI:
             height=0.06 * self.full_h
         )
 
-        list1 = ["One", "Two", "Three"]
+        list1 = ["Ear/Coloring", "Ear/Segment"]
         self.method_combo = ttk.Combobox(
             panel_frame,
             values=list1,

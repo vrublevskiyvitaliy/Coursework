@@ -1,11 +1,13 @@
 import ioclass
+from ioclass import filename
 from ear_trianguation import EarTriangulation
 from coloring import Coloring
 from polygon import Polygon
 
 
-def art_gallery_problem(interface, filename):
-    points = ioclass.read_from_file(filename)
+def art_gallery_problem(interface, points=None):
+    if points is None:
+        points = ioclass.read_from_file(filename)
     poly = Polygon()
 
     poly.set_points(points)
