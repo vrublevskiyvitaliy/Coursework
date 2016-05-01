@@ -27,6 +27,7 @@ class GUI:
 
         self.canvas = Canvas(self.root, width=self.canvas_width, height=self.canvas_height)
         self.res_text = StringVar()
+        self.all_points_text = StringVar()
 
         self.method_combo = None
         self.generate_button = None
@@ -35,6 +36,7 @@ class GUI:
         self.max_point_x = None
         self.max_point_y = None
         self.result_label = None
+        self.all_points_label = None
         self.points = None
         self.init()
 
@@ -52,6 +54,7 @@ class GUI:
 
         self.max_point_x = x_max
         self.max_point_y = y_max
+        self.set_all_points(len(points))
 
     def close_window(self, ev):
         self.root.destroy()
@@ -70,10 +73,6 @@ class GUI:
             ear_art_gallery_problem.art_gallery_problem(interface=self, points=points)
         elif mode == 1:
             ear_triang_segment_tree.ear_segment_art_gallery_problem(interface=self, points=points)
-        #print(self.method_combo.current())
-        #pass
-
-        #self.set_result(11)
 
     def generate_new_poly(self, ev):
         points = get_random_polygon()
@@ -82,6 +81,7 @@ class GUI:
         poly.set_points(points)
         self.canvas.delete("all")
         self.draw_polygon_points(poly)
+        self.set_result(0)
 
     def init(self):
         root = self.root
@@ -94,6 +94,7 @@ class GUI:
         quit_btn = Button(panel_frame, text='Quit')
 
         self.result_label = Label(panel_frame, textvariable=self.res_text, text='Result')
+        self.all_points_label = Label(panel_frame, textvariable=self.all_points_text, text='Points:')
 
         quit_btn.bind("<Button-1>", self.close_window)
 
@@ -141,7 +142,14 @@ class GUI:
             x=0.31 * self.full_w,
             y=0.01 * self.full_h,
             width=0.07 * self.full_w,
-            height=0.05 * self.full_h
+            height=0.06 * self.full_h
+        )
+
+        self.all_points_label.place(
+            x=0.41 * self.full_w,
+            y=0.01 * self.full_h,
+            width=0.07 * self.full_w,
+            height=0.06 * self.full_h
         )
 
     def get_canvas(self):
@@ -153,6 +161,8 @@ class GUI:
     def set_result(self, number):
         self.res_text.set("Result: " + str(number))
 
+    def set_all_points(self, number):
+        self.all_points_text.set("Points: " + str(number))
     '''
     This function draws the polygon on a canvas and displays them. This is done
     by simply drawing lines between consecutive points. Also, small dots are

@@ -259,6 +259,14 @@ def transform_matrix_to_coordinates(matrix):
             del correct_points[len(correct_points) - 1]
         correct_points.append(point)
 
+    low = correct_points[len(correct_points) - 2]
+    middle = correct_points[len(correct_points) - 1]
+    point = correct_points[0]
+    if low[0] == point[0] and low[0] == middle[0] or\
+            low[1] == point[1] and low[1] == middle[1]:
+            del correct_points[len(correct_points) - 1]
+
+
     points = correct_points
     if write_to_file:
         #'''
