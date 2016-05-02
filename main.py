@@ -21,24 +21,12 @@ def main():
     points = ioclass.read_from_file(filename)
 
     interface.set_points(points)
-    '''
-    x_max = 0
-    y_max = 0
 
-    for point in points:
-        if point.x > x_max:
-            x_max = point.x
-        if point.y > y_max:
-            y_max = point.y
-
-    interface.max_point_x = x_max
-    interface.max_point_y = y_max
-    '''
     poly = Polygon()
     poly.set_points(points)
 
-    #ear_art_gallery_problem.art_gallery_problem(interface)
-    ear_triang_segment_tree.ear_segment_art_gallery_problem(interface)
+    ear_art_gallery_problem.art_gallery_problem(interface)
+    #ear_triang_segment_tree.ear_segment_art_gallery_problem(interface)
     interface.draw_polygon_points(poly)
     root = interface.get_root()
     root.mainloop()

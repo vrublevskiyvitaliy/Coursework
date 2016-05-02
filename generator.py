@@ -299,5 +299,6 @@ def get_random_polygon():
         c_points[i].name = str(i)
     return c_points
 
+#generate_polygon()
 #generate()
 #transform_matrix_to_coordinates(initial_matrix)
