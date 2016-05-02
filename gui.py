@@ -12,6 +12,7 @@ from ioclass import filename
 import ear_art_gallery_problem
 import ear_triang_segment_tree
 import seidel_art_gallery_segment
+import seidel_art_gallery_color
 
 
 class GUI:
@@ -80,6 +81,9 @@ class GUI:
         elif mode == 2:
             seidel_art_gallery_segment.seidel_segment_art_gallery_problem(interface=self, points=points,
                                                                           show_decomposition=show_decomposition)
+        elif mode == 3:
+            seidel_art_gallery_color.art_gallery_problem(interface=self, points=points,
+                                                         show_decomposition=show_decomposition)
 
     def generate_new_poly(self, ev):
         points = get_random_polygon()
@@ -119,7 +123,7 @@ class GUI:
             height=0.06 * self.full_h
         )
 
-        list1 = ["Ear/Coloring", "Ear/Segment", "Seidel/Segment"]
+        list1 = ["Ear/Coloring", "Ear/Segment", "Seidel/Segment"]#, "Seidel/Color"]
         self.method_combo = ttk.Combobox(
             panel_frame,
             values=list1,

@@ -67,6 +67,8 @@ class Coloring:
         stack = list()
         stack.append(current_triangle)
         while all_count < len(self.triangles):
+            if len(stack) == 0:
+                t = 0
             current_triangle = stack.pop()
             vertex = d_vertexes[current_triangle]
 

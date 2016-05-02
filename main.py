@@ -10,6 +10,7 @@ from coloring import Coloring
 from polygon import Polygon
 import ear_art_gallery_problem
 import ear_triang_segment_tree
+import seidel_art_gallery_color
 
 
 #filename = 'test.txt'
@@ -26,6 +27,7 @@ def main():
     poly.set_points(points)
 
     ear_art_gallery_problem.art_gallery_problem(interface)
+    #seidel_art_gallery_color.art_gallery_problem(interface)
     #ear_triang_segment_tree.ear_segment_art_gallery_problem(interface)
     interface.draw_polygon_points(poly)
     root = interface.get_root()
