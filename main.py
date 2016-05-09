@@ -11,6 +11,7 @@ from polygon import Polygon
 import ear_art_gallery_problem
 import ear_triang_segment_tree
 import seidel_art_gallery_color
+import convex
 
 
 #filename = 'test.txt'
@@ -25,8 +26,8 @@ def main():
 
     poly = Polygon()
     poly.set_points(points)
-
-    ear_art_gallery_problem.art_gallery_problem(interface)
+    convex.convex_art_gallery_problem(interface)
+    #ear_art_gallery_problem.art_gallery_problem(interface)
     #seidel_art_gallery_color.art_gallery_problem(interface)
     #ear_triang_segment_tree.ear_segment_art_gallery_problem(interface)
     interface.draw_polygon_points(poly)

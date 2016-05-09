@@ -29,7 +29,7 @@ class Point:
         self.y = int(self.y * k2)
 
     def get_clone(self):
-        p = Point(self.x,self.y)
+        p = Point(self.x, self.y)
         p.ear = self.ear
         p.name = self.name
         p.next = self.next

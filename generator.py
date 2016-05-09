@@ -185,7 +185,7 @@ def is_there_wall(x1, y1, x2, y2, initial_matrix):
 
 
 def transform_matrix_to_coordinates(matrix):
-    write_to_file = False
+    write_to_file = True
     start_x = -1
     start_y = -1
 
