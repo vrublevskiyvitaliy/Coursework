@@ -95,7 +95,11 @@ def get_random_next_point_back(x, y, matrix):
     return free_choices[index][0], free_choices[index][1]
 
 
-def generate(initial_matrix):
+def generate(initial_matrix, iterations=None):
+
+    #if iterations is not None:
+    #    max_iterations = iterations
+
     current_point_x = random.randint(1, size_n-1)
     current_point_y = random.randint(1, size_m-1)
 
@@ -286,9 +290,9 @@ def generate_polygon():
     transform_matrix_to_coordinates(initial_matrix)
 
 
-def get_random_polygon():
+def get_random_polygon(iterations=None):
     initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
-    generate(initial_matrix)
+    generate(initial_matrix, iterations)
     points = transform_matrix_to_coordinates(initial_matrix)
     c_points = []
     for p in points:

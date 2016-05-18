@@ -52,6 +52,7 @@ def convex_art_gallery_problem(interface, points=None, show_decomposition=True):
 
     interface.draw_result_points(res)
     interface.set_result(len(res))
+    return len(res)
 
 
 def is_reflex(p1, p2, p3):
@@ -208,117 +209,12 @@ def convex_partition(points):
             triangles_points.pop(iter2)
             triangles_points[iter1] = newpoly
             poly1 = newpoly
-            # *iter1 = newpoly;
-            #poly1 = &(*iter1);
             i11 = 0
             loop_counter_poly1 = len(newpoly)
             loop_counter = len(triangles_points)
-            print("one more split")
+            #print("one more split")
             continue
         iter1 += 1
 
     break_point = 1
     return triangles_points
-
-'''
-int TPPLPartition::ConvexPartition_HM(TPPLPoly *poly, list<TPPLPoly> *parts) {
-	list<TPPLPoly> triangles;
-	list<TPPLPoly>::iterator iter1,iter2;
-	TPPLPoly *poly1,*poly2;
-	TPPLPoly newpoly;
-	TPPLPoint d1,d2,p1,p2,p3;
-	long i11,i12,i21,i22,i13,i23,j,k;
-	bool isdiagonal;
-	long numreflex;
-
-	//check if the poly is already convex
-	numreflex = 0;
-	for(i11=0;i11<poly->GetNumPoints();i11++) {
-		if(i11==0) i12 = poly->GetNumPoints()-1;
-		else i12=i11-1;
-		if(i11==(poly->GetNumPoints()-1)) i13=0;
-		else i13=i11+1;
-		if(IsReflex(poly->GetPoint(i12),poly->GetPoint(i11),poly->GetPoint(i13))) {
-			numreflex = 1;
-			break;
-		}
-	}
-	if(numreflex == 0) {
-		parts->push_back(*poly);
-		return 1;
-	}
-
-	if(!Triangulate_EC(poly,&triangles)) return 0;
-
-	for(iter1 = triangles.begin(); iter1 != triangles.end(); iter1++) {
-		poly1 = &(*iter1);
-		for(i11=0;i11<poly1->GetNumPoints();i11++) {
-			d1 = poly1->GetPoint(i11);
-			i12 = (i11+1)%(poly1->GetNumPoints());
-			d2 = poly1->GetPoint(i12);
-
-			isdiagonal = false;
-			for(iter2 = iter1; iter2 != triangles.end(); iter2++) {
-				if(iter1 == iter2) continue;
-				poly2 = &(*iter2);
-
-				for(i21=0;i21<poly2->GetNumPoints();i21++) {
-					if((d2.x != poly2->GetPoint(i21).x)||(d2.y != poly2->GetPoint(i21).y)) continue;
-					i22 = (i21+1)%(poly2->GetNumPoints());
-					if((d1.x != poly2->GetPoint(i22).x)||(d1.y != poly2->GetPoint(i22).y)) continue;
-					isdiagonal = true;
-					break;
-				}
-				if(isdiagonal) break;
-			}
-
-			if(!isdiagonal) continue;
-
-			p2 = poly1->GetPoint(i11);
-			if(i11 == 0) i13 = poly1->GetNumPoints()-1;
-			else i13 = i11-1;
-			p1 = poly1->GetPoint(i13);
-			if(i22 == (poly2->GetNumPoints()-1)) i23 = 0;
-			else i23 = i22+1;
-			p3 = poly2->GetPoint(i23);
-
-			if(!IsConvex(p1,p2,p3)) continue;
-
-			p2 = poly1->GetPoint(i12);
-			if(i12 == (poly1->GetNumPoints()-1)) i13 = 0;
-			else i13 = i12+1;
-			p3 = poly1->GetPoint(i13);
-			if(i21 == 0) i23 = poly2->GetNumPoints()-1;
-			else i23 = i21-1;
-			p1 = poly2->GetPoint(i23);
-
-			if(!IsConvex(p1,p2,p3)) continue;
-
-			newpoly.Init(poly1->GetNumPoints()+poly2->GetNumPoints()-2);
-			k = 0;
-			for(j=i12;j!=i11;j=(j+1)%(poly1->GetNumPoints())) {
-				newpoly[k] = poly1->GetPoint(j);
-				k++;
-			}
-			for(j=i22;j!=i21;j=(j+1)%(poly2->GetNumPoints())) {
-				newpoly[k] = poly2->GetPoint(j);
-				k++;
-			}
-
-			triangles.erase(iter2);
-			*iter1 = newpoly;
-			poly1 = &(*iter1);
-			i11 = -1;
-
-			continue;
-		}
-	}
-
-	for(iter1 = triangles.begin(); iter1 != triangles.end(); iter1++) {
-		parts->push_back(*iter1);
-	}
-
-	return 1;
-}
-
-'''

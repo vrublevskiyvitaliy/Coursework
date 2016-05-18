@@ -70,6 +70,7 @@ def seidel_segment_art_gallery_problem(interface, points=None, show_decompositio
 
     interface.draw_result_points(res)
     interface.set_result(len(res))
+    return len(res)
 
 #test = [[0, 0], [1, 0], [1, 1], [0, 1]]
 #seidel_1 = seidel.Triangulator(test)

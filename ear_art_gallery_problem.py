@@ -37,7 +37,7 @@ def art_gallery_problem(interface, points=None, show_decomposition=True):
 
     # The last step is to output the triangulation of the original, non-scaled
     # polygon to the console:
-    ioclass.print_triangles_to_console(triangles1)
+    #ioclass.print_triangles_to_console(triangles1)
 
     art_gallery_coloring = Coloring()
     art_gallery_coloring.set_triangulation(points, triangles1)
@@ -50,3 +50,4 @@ def art_gallery_problem(interface, points=None, show_decomposition=True):
 
     interface.draw_result(list_res)
     interface.set_result(res)
+    return res

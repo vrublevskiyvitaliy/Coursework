@@ -71,3 +71,4 @@ def ear_segment_art_gallery_problem(interface, points=None, show_decomposition=T
 
     interface.draw_result_points(res)
     interface.set_result(len(res))
+    return len(res)

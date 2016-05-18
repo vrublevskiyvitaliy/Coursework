@@ -9,8 +9,8 @@ class Coloring:
     def set_triangulation(self, p, tr):
         self.polygon = p
         self.triangles = tr
-        self.create_dual_graph_optimal()
-        #self.create_dual_graph()
+        #self.create_dual_graph_optimal()
+        self.create_dual_graph()
 
     def create_dual_graph(self):
         d_vertexes = {i: self.triangles[i] for i in range(0, len(self.triangles))}
