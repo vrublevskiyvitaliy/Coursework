@@ -28,7 +28,6 @@ class SegmentTree(object):
     def query_len(self, start, end):
         return self._query_len(start, end, self.start, self.end)
 
-    """"""
     def _init(self, start, end):
         self.max_value[(start, end)] = 0
         self.sum_value[(start, end)] = 0
@@ -77,7 +76,6 @@ class SegmentTree(object):
             else:
                 ans = max(self._query_max(start, mid, in_start, mid),
                         self._query_max(mid+1, end, mid+1, in_end))
-        #print start, end, in_start, in_end, ans
         return ans
 
     def _query_max_index(self, start, end, in_start, in_end):
@@ -98,7 +96,6 @@ class SegmentTree(object):
                 else:
                     ans = a2
 
-        #print start, end, in_start, in_end, ans
         return ans
 
     def _query_sum(self, start, end, in_start, in_end):
@@ -126,5 +123,4 @@ class SegmentTree(object):
             else:
                 ans = self._query_len(start, mid, in_start, mid) + self._query_len(mid+1, end, mid+1, in_end)
 
-        #print start, end, in_start, in_end, ans
         return ans

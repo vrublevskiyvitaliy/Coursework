@@ -12,7 +12,6 @@ from ioclass import filename
 import ear_art_gallery_problem
 import ear_triang_segment_tree
 import seidel_art_gallery_segment
-import seidel_art_gallery_color
 import convex
 
 
@@ -34,7 +33,6 @@ class GUI:
 
         self.method_combo = None
         self.generate_button = None
-        # label = Label( root, textvariable=var, relief=RAISED )
 
         self.max_point_x = None
         self.max_point_y = None
@@ -82,9 +80,6 @@ class GUI:
         elif mode == 2:
             seidel_art_gallery_segment.seidel_segment_art_gallery_problem(interface=self, points=points,
                                                                           show_decomposition=show_decomposition)
-        #elif mode == 3:
-        #    seidel_art_gallery_color.art_gallery_problem(interface=self, points=points,
-        #                                                 show_decomposition=show_decomposition)
         elif mode == 3:
             convex.convex_art_gallery_problem(interface=self, points=points, show_decomposition=show_decomposition)
 
@@ -126,7 +121,7 @@ class GUI:
             height=0.06 * self.full_h
         )
 
-        list1 = ["Ear/Coloring", "Ear/Segment", "Seidel/Segment", "Convex"]#, "Seidel/Color"]
+        list1 = ["Ear/Coloring", "Ear/Segment", "Seidel/Segment", "Convex"]
         self.method_combo = ttk.Combobox(
             panel_frame,
             values=list1,
@@ -192,14 +187,7 @@ class GUI:
 
     def set_all_points(self, number):
         self.all_points_text.set("Points: " + str(number))
-    '''
-    This function draws the polygon on a canvas and displays them. This is done
-    by simply drawing lines between consecutive points. Also, small dots are
-    drawn for easy identification of the vertices, and a small text label is
-    also drawn next to each vertex (this text is the name of each Point object).
 
-    @param canvas: The Tkinter Canvas widget on which to draw the polygon
-    '''
     def draw_polygon(self, triangulation):
         canvas = self.canvas
         # Draw the polygon as a collection of lines:
@@ -295,15 +283,7 @@ class GUI:
             cursor = cursor.next
             if cursor.equals(linked_list[0]):
                 break
-    '''
-    This function draws triangles, after a polygon is triangulated.
 
-    @param canvas: A Tkinter Canvas widget on which to draw the triangles
-    @param triangles: This should be the return value of the 'Triangulate' function
-
-    The function draws triangles by simply drawing lines between the 3 points
-    of each triangle.
-    '''
     def draw_triangles(self, triangles):
         pointlist = self.points
         # The triangulation output is a list of triangles, where each triangle
@@ -362,8 +342,8 @@ class GUI:
 
     def draw_label(self, text, font, x, y):
         label = Label(self.canvas, text=text, font=font)
-        #x, y = self.transform_point_for_drawing(x, y)
-        #label.place(x=x+5, y=y+5)
+        # x, y = self.transform_point_for_drawing(x, y)
+        # label.place(x=x+5, y=y+5)
 
     def transform_point_for_drawing(self, x, y):
         # size_x = 0.8 * self.full_w # max size for x

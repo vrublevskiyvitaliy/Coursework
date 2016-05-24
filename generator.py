@@ -95,23 +95,14 @@ def get_random_next_point_back(x, y, matrix):
     return free_choices[index][0], free_choices[index][1]
 
 
-def generate(initial_matrix, iterations=None):
-
-    #if iterations is not None:
-    #    max_iterations = iterations
+def generate(initial_matrix):
 
     current_point_x = random.randint(1, size_n-1)
     current_point_y = random.randint(1, size_m-1)
 
     initial_matrix[current_point_x][current_point_y] = 1
 
-    #print_matrix(initial_matrix)
-    #print('************************')
-
-    # number_of_vertixes = 4
-
     iteration = 0
-
 
     # 1 - eat
     # 0 - back
@@ -133,11 +124,7 @@ def generate(initial_matrix, iterations=None):
 
         next_task = random.randint(0,1)
         iteration += 1
-        #print('********************')
-        #print_matrix(initial_matrix)
 
-    #print('********************')
-    #print_matrix(initial_matrix)
     print("create matrix")
 
 
@@ -175,11 +162,6 @@ def is_there_wall(x1, y1, x2, y2, initial_matrix):
     initial_matrix[x1][y1] = 2
     initial_matrix[x2][y2] = 2
 
-    #print ('****************')
-    #print(str(x1) + ' - ' +str())
-    #print_matrix(initial_matrix)
-    #print ('****************')
-
     initial_matrix[x1][y1] = one
     initial_matrix[x2][y2] = two
     if (initial_matrix[x1][y1] + initial_matrix[x2][y2]) % 2 == 0:
@@ -203,10 +185,8 @@ def transform_matrix_to_coordinates(matrix):
             break
 
     points = list()
-    # points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
     points.append(get_coordinate_of_point(start_x, start_y, -1, +1))
 
-    # curent_point = get_coordinate_of_point(start_x, start_y, +1, +1)
     curent_point = (points[0][0], points[0][1] + 2)
     while curent_point != points[0]:
         points.append(curent_point)
@@ -223,17 +203,13 @@ def transform_matrix_to_coordinates(matrix):
                 # it is the previous
                 continue
             if is_there_wall(curent_point[0], curent_point[1], point[0], point[1], matrix):
-                # points.append(point)
                 curent_point = point
                 is_exist = True
                 break
         if not is_exist:
-            #print 'Error'
-            #print(points)
             break
 
 
-    # print points
     correct_points = list()
     x_min = 10000000
     y_min = 10000000
@@ -248,9 +224,7 @@ def transform_matrix_to_coordinates(matrix):
     points = list()
     for point in correct_points:
         points.append((point[0] - x_min, point[1] - y_min))
-    #'''
     correct_points = list()
-    # correct_points.append(points[0])
     for point in points:
         if len(correct_points) < 2:
             correct_points.append(point)
@@ -273,7 +247,6 @@ def transform_matrix_to_coordinates(matrix):
 
     points = correct_points
     if write_to_file:
-        #'''
         f = open('test.txt', 'w')
         f.write(str(len(points)) + '\n')
 
@@ -290,9 +263,9 @@ def generate_polygon():
     transform_matrix_to_coordinates(initial_matrix)
 
 
-def get_random_polygon(iterations=None):
+def get_random_polygon():
     initial_matrix = [[0 for x in range(-1, size_n + 1)] for y in range(-1, size_m + 1)]
-    generate(initial_matrix, iterations)
+    generate(initial_matrix)
     points = transform_matrix_to_coordinates(initial_matrix)
     c_points = []
     for p in points:
@@ -302,7 +275,3 @@ def get_random_polygon(iterations=None):
     for i in range(len(c_points)):
         c_points[i].name = str(i)
     return c_points
-
-#generate_polygon()
-#generate()
-#transform_matrix_to_coordinates(initial_matrix)

@@ -86,7 +86,6 @@ class Coloring:
             if current_triangle not in d_edges:
                 d_edges[current_triangle] = list()
 
-            #neighbors = list()
             edges = [p1p2, p2p3, p3p1]
             for edge in edges:
                 for tr in d_vertex_per_edge[edge]:
@@ -117,27 +116,17 @@ class Coloring:
                     self.polygon[int(self.dual_vertexes[vertex][2])].color
 
                 if color_sum < 3:
-                    # print("Triangle #" + str(vertex) + " has one vertex uncolored!!!")
                     if self.polygon[int(self.dual_vertexes[vertex][0])].color is -1:
                         self.polygon[int(self.dual_vertexes[vertex][0])].color = 3 - (color_sum + 1)
-                        # print("Triangle #" + str(vertex) + " Vertex #0 found uncolored!!! Now colored to " + str(
-                        #    vdual[vertex][0].color))
                     elif self.polygon[int(self.dual_vertexes[vertex][1])].color is -1:
                         self.polygon[int(self.dual_vertexes[vertex][1])].color = 3 - (color_sum + 1)
-                        # print("Triangle #" + str(vertex) + " Vertex #1 found uncolored!!! Now colored to " + str(
-                        #    vdual[vertex][1].color))
                     elif self.polygon[int(self.dual_vertexes[vertex][2])].color is -1:
                         self.polygon[int(self.dual_vertexes[vertex][2])].color = 3 - (color_sum + 1)
-                        # print("Triangle #" + str(vertex) + " Vertex #2 found uncolored!!! Now colored to " + str(
-                        #     vdual[vertex][2].color))
                 visited.add(vertex)
                 stack.extend(set(self.dual_edges[vertex]) - visited)
         return visited
 
-    def colorize(self): #, map_points, listTriangle, vdual, edual):
-        # ear_vertex = None
-        # ear_tri = None
-        # key = None
+    def colorize(self):
         for d_edge in self.dual_edges:
             if len(self.dual_edges[d_edge]) == 1:
                 # ear
@@ -147,16 +136,11 @@ class Coloring:
         ear_tri = self.dual_vertexes[key_ear_tri]
 
         # print("############################# INITIAL COLORING OF ONE TRIANGLE ##################################")
-        # print("Triangle #" + str(key) + " Vertex #0 colored to 0")
         self.polygon[int(ear_tri[0])].color = 0
-        # print("Triangle #" + str(key) + " Vertex #1 colored to 1")
         self.polygon[int(ear_tri[1])].color = 1
-        # print("Triangle #" + str(key) + " Vertex #2 colored to 2")
         self.polygon[int(ear_tri[2])].color = 2
-        # print("############################# GOING TO COLOR REMAINING TRIANGLES ###############################")
         self.dfs(key_ear_tri)
         output, col = self.find_min_color()
-        # print("Guards are colored " + str(col - 1))
         return output, col
 
     def find_min_color(self):

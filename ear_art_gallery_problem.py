@@ -23,21 +23,11 @@ def art_gallery_problem(interface, points=None, show_decomposition=True):
 
     # Create a Triangulation object from the linked list:
     t1 = EarTriangulation(headnode, size)
-
-    # Do the triangulation. The return value is a list of 3-tuples, which
-    # represent the vertices of each triangle.
-
+    # Do the triangulation.
     triangles1 = t1.triangulate()
 
-    # Now for the GUI. Both the polygon and its triangulation have been scaled,
-    # as specified above. Now we need to draw them on a Tkinter Canvas.
-    # Setup and init a canvas:
     if show_decomposition:
         interface.draw_triangles(triangles1)
-
-    # The last step is to output the triangulation of the original, non-scaled
-    # polygon to the console:
-    #ioclass.print_triangles_to_console(triangles1)
 
     art_gallery_coloring = Coloring()
     art_gallery_coloring.set_triangulation(points, triangles1)

@@ -18,9 +18,7 @@ def ear_segment_art_gallery_problem(interface, points=None, show_decomposition=T
     # Create a Triangulation object from the linked list:
     t1 = EarTriangulation(headnode, size)
 
-    # Do the triangulation. The return value is a list of 3-tuples, which
-    # represent the vertices of each triangle.
-
+    # Do the triangulation
     triangles1 = t1.triangulate()
 
     if show_decomposition:

@@ -16,7 +16,6 @@ def convex_art_gallery_problem(interface, points=None, show_decomposition=True):
             poly = res[i]
             interface.draw_polygon_as_list_of_points(poly, 'red', 1.0)
 
-
     size = len(points)
     segment_tree = SegmentTree(0, size - 1)
     polygons_per_point = dict()
@@ -123,7 +122,6 @@ def convex_partition(points):
         triangles_points.append([p1, p2, p3])
 
     loop_counter = len(triangles_points)
-    #for iter1 in range(len(triangles_points)):
     iter1 = 0
     while iter1 < loop_counter:
         poly1 = triangles_points[iter1]
@@ -190,7 +188,7 @@ def convex_partition(points):
                 i11 += 1
                 continue
 
-            newpoly = list()  # .Init(poly1->GetNumPoints()+poly2->GetNumPoints()-2);
+            newpoly = list()
             for i in range(len(poly1) + len(poly2) - 2):
                 newpoly.append(0)
             k = 0
@@ -212,7 +210,6 @@ def convex_partition(points):
             i11 = 0
             loop_counter_poly1 = len(newpoly)
             loop_counter = len(triangles_points)
-            #print("one more split")
             continue
         iter1 += 1
 

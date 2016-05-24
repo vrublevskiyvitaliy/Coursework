@@ -31,7 +31,7 @@ class EarTriangulation:
             new_point.prev = new_cursor
             
             cursor = cursor.next
-            new_cursor = new_point           # same as: new_cursor = new_cursor.next
+            new_cursor = new_point
 
         # finally, link the new head and tail before returning the head:
         new_head.prev = new_cursor
@@ -65,11 +65,7 @@ class EarTriangulation:
     def collinear(self, a, b, c):
         return self.area_sign(a, b, c) == 0
 
-    '''
-    Adapted from O'Rourke. Checks if point c is geometrically in between 
-    points a and b. In between means either in terms of x or y coordinate 
-    ranges.
-    '''
+    # Checks if point c is geometrically in between points a and b.
     def is_between(self, a, b, c):
         if not self.collinear(a, b, c):
             return False
@@ -79,10 +75,7 @@ class EarTriangulation:
         else:
             return (a.y <= c.y and c.y <= b.y) or (a.y >= c.y and c.y >= b.y)
 
-    '''
-    Adapted from O'Rourke. Returns true if the line segment a,b intersects the 
-    line segment c,d.
-    '''
+    # Returns true if the line segment a,b intersects the
     def is_intersect(self, a, b, c, d):
         if self.intersect_prop(a, b, c, d):
             return True
@@ -91,10 +84,7 @@ class EarTriangulation:
             return True
         return False
 
-    '''
-    Adapted from O'Rourke. Returns true if the line segment a,b is a diagonal 
-    of the polygon.
-    '''
+    # Returns true if the line segment a,b is a diagonal
     def is_diagonal(self, a, b, head):
         c = head
 
@@ -109,22 +99,14 @@ class EarTriangulation:
 
         return True
 
-    '''
-    Adapted from O'Rourke. Returns true if the line segments a,b and c,d 
-    intersect "properly." A proper intersection is when the two segments fully 
-    cross each other. If one segment's endpoint lies on the other segment, it's 
-    not considered a proper intersection.
-    '''
+    # Returns true if the line segments a,b and c,d intersect "properly."
     def intersect_prop(self, a, b, c, d):
         if self.collinear(a, b, c) or self.collinear(a, b, d) or self.collinear(c, d, a) or self.collinear(c, d, b):
             return False
 
         return self.xor(self.left(a, b, c), self.left(a, b, d)) and self.xor(self.left(c, d, a), self.left(c, d, b))
 
-    '''
-    Adapted from O'Rourke. This function is needed to distinguish internal 
-    diagonals from the external ones.
-    '''
+    # This function is needed to distinguish internal
     def is_in_cone(self, a, b):
         a1 = a.next
         a0 = a.prev
@@ -134,17 +116,9 @@ class EarTriangulation:
         else:
             return not (self.left_on(a, b, a1) and self.left(b, a, a0))
 
-    '''
-    Adapted from O'Rourke. 
-    '''
     def diagonal(self, a, b, head):
         return self.is_in_cone(a, b) and self.is_in_cone(b, a) and self.is_diagonal(a, b, head)
 
-    '''
-    Adapted from O'Rourke. This function must be called initially before the 
-    triangulation is performed, because the ear status of each vertex must be
-    initialized before triangulation can take place.
-    '''
     def ear_init(self, head):
         v1 = head
         while True:
@@ -156,21 +130,6 @@ class EarTriangulation:
             if v1 is head:
                 break
 
-    '''
-    This is the actual triangulation function, which makes use of all the helper
-    functions defined above. Note that since the linked list will be
-    destroyed during the triangulation process (since the polygon's ears are
-    clipped off), a new linked list is created so that the original linked 
-    list is preserved.
-    
-    @return: A list of 3-tuples. Each 3-tuple is of the form [v1, v2, v3], 
-            which represents a triangle. All of these tuples, taken together,
-            represents the triangulated polygon.
-            
-    Note that the return value can be modified easily so that some other values 
-    of the polygon can be returned instead - for example, the coordinates of 
-    the triangles or the Point objects themselves.
-    '''
     def triangulate(self):
         return_list = []
 
@@ -226,27 +185,6 @@ class EarTriangulation:
                 break
         return return_list
 
-
-    '''
-    This method does some translating and scaling so that the polygon is displayed
-    nicely on the canvas.
-    
-    First, all points are translated so that the point with the minimum x-coordinate
-    is very close to the y-axis, and the point with the minimum y-coordinate is
-    very close to the x-axis (about 10 pixels). No points will have negative
-    coordinates after this translation.
-    
-    What this translation does is make all points very close to the x and y axes
-    in the first quadrant of the plane.
-    
-    Then, each point's x and y values are multiplied by two scaling factors 
-    k1 and k2, respectively. These are calculated such that the most extreme
-    points will still remain inside the canvas after they're scaled.
-    
-    
-    @param uniform: True if x and y coordinates should be scaled by the same 
-    factor. If True, both x and y will be scaled by min(k1, k2).
-    '''
     def scale(self, uniform=False):
         x_min = 1000000000  # Initialize to some huge numbers
         y_min = 1000000000

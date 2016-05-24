@@ -17,7 +17,6 @@ def seidel_segment_art_gallery_problem(interface, points=None, show_decompositio
     for p in points:
         list_points.append([p.x, p.y])
 
-    #test = [[0, 0], [1, 0], [1, 1], [0, 1]]
     seidel_triangalator = seidel.Triangulator(list_points)
 
     triangles1 = seidel_triangalator.triangles()
@@ -71,8 +70,3 @@ def seidel_segment_art_gallery_problem(interface, points=None, show_decompositio
     interface.draw_result_points(res)
     interface.set_result(len(res))
     return len(res)
-
-#test = [[0, 0], [1, 0], [1, 1], [0, 1]]
-#seidel_1 = seidel.Triangulator(test)
-
-#triangles = seidel_1.triangles()
