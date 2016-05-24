@@ -58,7 +58,6 @@ def read_from_file(filename='input.txt'):
     for i in range(len(points)):
         points[i].name = str(i)
 
-
     return points
 
 
