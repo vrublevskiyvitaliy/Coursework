@@ -34,7 +34,6 @@ def convex_art_gallery_problem(interface, points=None, show_decomposition=True):
     for point in polygons_per_point:
         segment_tree.add(int(point), int(point), len(polygons_per_point[point]))
 
-    current_max = size
     start = 0
     end = size - 1
     current_max = segment_tree.query_max(start, end)
@@ -207,7 +206,7 @@ def convex_partition(points):
             triangles_points.pop(iter2)
             triangles_points[iter1] = newpoly
             poly1 = newpoly
-            i11 = 0
+            i11 -= 1
             loop_counter_poly1 = len(newpoly)
             loop_counter = len(triangles_points)
             continue

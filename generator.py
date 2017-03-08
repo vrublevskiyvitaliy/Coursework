@@ -3,7 +3,7 @@ import random
 
 size_n = 100
 size_m = 100
-max_iterations = 100
+max_iterations = 2000
 
 
 def print_matrix(matrix):
